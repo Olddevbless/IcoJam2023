@@ -12,31 +12,34 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
 {
     [SerializeField] float playerAcceleration;
     [SerializeField] float playerMaxSpeed;
-    [SerializeField] float playerJumpPower;
+    //[SerializeField] float playerJumpPower;
     [SerializeField] float playerDodgePower;
     [SerializeField] Vector2 mousePos;
     [SerializeField] PlayerInput playerInput;
     [SerializeField] Vector2 movement;
-    [SerializeField] GameObject torso;
+    //[SerializeField] GameObject torso;
     public Vector3 mouseToGroundPoint;
     public Vector2 currentMoveVector;
     Vector3 dir;
-    [Header("Jump")]
+    /*[Header("Jump")]
     [SerializeField] float coyoteTime;
     [SerializeField] float jumpBufferTime;
     [SerializeField] float coyoteTimeCounter;
     [SerializeField] float jumpBufferCounter;
-    [SerializeField] bool isGrounded;
-
+    [SerializeField] bool isGrounded;*/
+    Animator playerAnimator;
     [Header("Attacking")]
-    [SerializeField] GameObject meleeWeaponEquipped;
-    [SerializeField] GameObject rangedWeaponEquipped;
-    [SerializeField] bool isMeleeWeaponEquipped;
-    [SerializeField] bool isRangedWeaponEquipped;
+    [SerializeField] float cooldownTime = 2f;
+    private float nextFireTime = 0f;
+    [SerializeField] static int noOfClicks = 0;
+    float lastClickedTime = 0;
+    float maxComboDelay = 1;
     [SerializeField] int shieldSize;
     [SerializeField] GameObject[] shieldParts;
     public bool shieldIsRaised;
     Rigidbody playerRB;
+
+
     #region InputSetup
     private PlayerInput _controls;
     private InputAction _moveAction;
@@ -52,6 +55,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
      void Awake()
     {
         CacheControls();
+        playerAnimator = GetComponentInChildren<Animator>();
     }
     private void OnEnable()
     {
@@ -88,7 +92,8 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     // Update is called once per frame
     void Update()
     {
-        if (isGrounded)
+        CheckPrimaryCombo();
+        /*if (isGrounded)
         {
             coyoteTimeCounter = coyoteTime;
             jumpBufferCounter = jumpBufferTime;
@@ -100,7 +105,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
         if (playerRB.velocity.y < 0)
         {
             jumpBufferCounter -= Time.deltaTime;
-        }
+        }*/
             
     }
     private void FixedUpdate()
@@ -166,18 +171,72 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
 
     }
 
+   
     public void OnPrimary(InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
-    }
+        
+        lastClickedTime = Time.time;
+        noOfClicks++;
+        if (Time.time > nextFireTime)
+        {
+            if (noOfClicks == 1)
+            {
+                playerAnimator.SetBool("hit1", true);
+            }
+            noOfClicks = Mathf.Clamp(noOfClicks, 0, 3);
 
+            if (noOfClicks >= 2 && playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit1"))
+            {
+                playerAnimator.SetBool("hit1", false);
+                playerAnimator.SetBool("hit2", true);
+            }
+            if (noOfClicks >= 3 && playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
+            {
+                playerAnimator.SetBool("hit2", false);
+                playerAnimator.SetBool("hit3", true);
+            }
+        }
+       
+        
+
+    }
+    public void CheckPrimaryCombo()
+    {
+        if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit1"))
+        {
+            playerAnimator.SetBool("hit1", false);
+        }
+        if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
+        {
+            playerAnimator.SetBool("hit2", false);
+        }
+        if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit3"))
+        {
+            playerAnimator.SetBool("hit3", false);
+            noOfClicks = 0;
+        }
+
+
+        if (Time.time - lastClickedTime > maxComboDelay)
+        {
+            noOfClicks = 0;
+        }
+
+        //cooldown time
+        
+    }
+    
     public void OnSecondary(InputAction.CallbackContext context)
     {
+       
         if (context.interaction is HoldInteraction )
         {
-            if (shieldSize<0)
+            
+            if (shieldSize>0)
             {
-                RaiseShield();
+                
+                shieldIsRaised = true;
+                RaiseShield(shieldIsRaised);
             }
             else
             {
@@ -185,11 +244,9 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
                 
             }
         }
-        if (context.canceled)
-        {
-            shieldIsRaised = false;
-        }
+        
     }
+    public void OnSecondaryCancel(InputAction.CallbackContext obj) { shieldIsRaised = false;}
 
     public void OnSwapWeapon(InputAction.CallbackContext context)
     {
@@ -202,10 +259,14 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
             shieldSize++;
         }      
     }
-    public void RaiseShield()
+    public void RaiseShield(bool isShieldRaised)
     {
-        //hold animation
-        shieldIsRaised = true;
+        
+        if (isShieldRaised)
+        {
+            //hold animation
+        }
+        
     }
     public void BreakShield()
     {
@@ -234,7 +295,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
         _primaryAction.started += OnPrimary;
         //_primaryAction.canceled += OnPrimaryCancel;
         _secondaryAction.started += OnSecondary;
-        //_secondaryAction.canceled += OnSecondaryCancel;
+        _secondaryAction.canceled += OnSecondaryCancel;
         _swapWeaponsAction.started += OnSwapWeapon;
         _activateAction.performed += OnAction;
         //_pauseAction = _controls.Player.DoPause;

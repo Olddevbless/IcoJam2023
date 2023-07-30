@@ -1,0 +1,358 @@
+fileFormatVersion: 2
+guid: 3ca620447c8d56242b93fa196e05b2d7
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: mixamo.com (1)
+      takeName: mixamo.com
+      internalID: -8127419540893396915
+      firstFrame: 45
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/armpole.L
+        weight: 1
+      - path: Armature/armpole.L/armpole.L_end
+        weight: 1
+      - path: Armature/armpole.R
+        weight: 1
+      - path: Armature/armpole.R/armpole.R_end
+        weight: 1
+      - path: Armature/heelliftcopyrot
+        weight: 1
+      - path: Armature/heelliftcopyrot/heelliftcopyrot_end
+        weight: 1
+      - path: Armature/legpole.L
+        weight: 1
+      - path: Armature/legpole.L/legpole.L_end
+        weight: 1
+      - path: Armature/legpole.R
+        weight: 1
+      - path: Armature/legpole.R/legpole.R_end
+        weight: 1
+      - path: Armature/root
+        weight: 1
+      - path: Armature/root/body
+        weight: 1
+      - path: Armature/root/body/pelvis
+        weight: 1
+      - path: Armature/root/body/pelvis/heeladapt.L
+        weight: 1
+      - path: Armature/root/body/pelvis/heeladapt.L/heeladapt.L_end
+        weight: 1
+      - path: Armature/root/body/pelvis/heeladapt.R
+        weight: 1
+      - path: Armature/root/body/pelvis/heeladapt.R/heeladapt.R_end
+        weight: 1
+      - path: Armature/root/body/pelvis/legstretch.L
+        weight: 1
+      - path: Armature/root/body/pelvis/legstretch.L/legstretch.L_end
+        weight: 1
+      - path: Armature/root/body/pelvis/legstretch.R
+        weight: 1
+      - path: Armature/root/body/pelvis/legstretch.R/legstretch.R_end
+        weight: 1
+      - path: Armature/root/body/pelvis/spineheadtrack
+        weight: 1
+      - path: Armature/root/body/pelvis/spineheadtrack/spinebbone
+        weight: 1
+      - path: Armature/root/body/pelvis/spineheadtrack/spinebbone/spinebbone_end
+        weight: 1
+      - path: Armature/root/body/pelvis/spineheadtrack/spinehead
+        weight: 1
+      - path: Armature/root/body/pelvis/spineheadtrack/spinehead/spinehead_end
+        weight: 1
+      - path: Armature/root/body/pelvis/spinepushpullchild1
+        weight: 1
+      - path: Armature/root/body/pelvis/spinepushpullchild1/spinepushpullchild1_end
+        weight: 1
+      - path: Armature/root/body/pelvis/thigh.L
+        weight: 1
+      - path: Armature/root/body/pelvis/thigh.L/shin.L
+        weight: 1
+      - path: Armature/root/body/pelvis/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: Armature/root/body/pelvis/thigh.L/shin.L/foot.L/toes.L
+        weight: 1
+      - path: Armature/root/body/pelvis/thigh.L/shin.L/foot.L/toes.L/toes.L_end
+        weight: 1
+      - path: Armature/root/body/pelvis/thigh.R
+        weight: 1
+      - path: Armature/root/body/pelvis/thigh.R/shin.R
+        weight: 1
+      - path: Armature/root/body/pelvis/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: Armature/root/body/pelvis/thigh.R/shin.R/foot.R/toes.R
+        weight: 1
+      - path: Armature/root/body/pelvis/thigh.R/shin.R/foot.R/toes.R/toes.R_end
+        weight: 1
+      - path: Armature/root/body/spine1
+        weight: 1
+      - path: Armature/root/body/spine1/spine2
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinepushpullchild2
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinepushpullchild2/spinepushpullchild2_end
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.L
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.L/armstretch.L
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.L/armstretch.L/armstretch.L_end
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.L/upperarm.L
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.L/upperarm.L/lowerarm.L
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.L/upperarm.L/lowerarm.L/hand.L
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.L/upperarm.L/lowerarm.L/hand.L/hand.L_end
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.R
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.R/armstretch.R
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.R/armstretch.R/armstretch.R_end
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.R/upperarm.R
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.R/upperarm.R/lowerarm.R
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.R/upperarm.R/lowerarm.R/hand.R
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/clavicle.R/upperarm.R/lowerarm.R/hand.R/hand.R_end
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/neck
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/neck/head
+        weight: 1
+      - path: Armature/root/body/spine1/spine2/spinetail/neck/head/head_end
+        weight: 1
+      - path: Armature/root/body/torsocontroller
+        weight: 1
+      - path: Armature/root/body/torsocontroller/spinepushpullcontroller
+        weight: 1
+      - path: Armature/root/body/torsocontroller/spinepushpullcontroller/spinepushpullcontroller_end
+        weight: 1
+      - path: Armature/root/footcontroller.L
+        weight: 1
+      - path: Armature/root/footcontroller.L/footlift.L
+        weight: 1
+      - path: Armature/root/footcontroller.L/footlift.L/iktarget2.L
+        weight: 1
+      - path: Armature/root/footcontroller.L/footlift.L/iktarget2.L/iktarget2.L_end
+        weight: 1
+      - path: Armature/root/footcontroller.R
+        weight: 1
+      - path: Armature/root/footcontroller.R/footlift.R
+        weight: 1
+      - path: Armature/root/footcontroller.R/footlift.R/iktarget2.R
+        weight: 1
+      - path: Armature/root/footcontroller.R/footlift.R/iktarget2.R/iktarget2.R_end
+        weight: 1
+      - path: Armature/root/iktarget.L
+        weight: 1
+      - path: Armature/root/iktarget.L/iktarget.L_end
+        weight: 1
+      - path: Armature/root/iktarget.R
+        weight: 1
+      - path: Armature/root/iktarget.R/iktarget.R_end
+        weight: 1
+      - path: Armature/root/lookat
+        weight: 1
+      - path: Armature/root/lookat/lookatbone
+        weight: 1
+      - path: Armature/root/lookat/lookatbone/lookatbone_end
+        weight: 1
+      - path: Mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|fsIK_IGNORE
+      takeName: Armature|fsIK_IGNORE
+      internalID: -260004290981662392
+      firstFrame: 0
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: mixamo.com
+      takeName: mixamo.com
+      internalID: -203655887218126122
+      firstFrame: 0
+      lastFrame: 106
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,5 +1,5 @@
 {
-    "name": "gamedevtv-jam-23",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "Player",
@@ -38,7 +38,7 @@
                     "id": "aefaba86-53ef-4fcf-8505-d7605958bacf",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
