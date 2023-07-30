@@ -55,4 +55,8 @@ public class FieldOfView : MonoBehaviour
         else if (canSeePlayer)
             canSeePlayer = false;
     }
+    private void Update()
+    {
+        
+    }
 }
