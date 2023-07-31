@@ -18,7 +18,11 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     [SerializeField] Vector2 mousePos;
     [SerializeField] PlayerInput playerInput;
     [SerializeField] Vector2 movement;
-    
+
+
+    [Header("UI")]
+    [SerializeField] GameObject[] shieldPartsUI;
+    [SerializeField] GameObject[] playerHPUI;
     //[SerializeField] GameObject torso;
     public Vector3 mouseToGroundPoint;
     public Vector2 currentMoveVector;
@@ -32,10 +36,11 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     Animator playerAnimator;
     [Header("Attacking")]
     PlayerAttack playerAttack;
-    [SerializeField] int shieldSize;
+    public int shieldSize;
     [SerializeField] GameObject[] shieldParts;
     public bool shieldIsRaised;
     Rigidbody playerRB;
+    public bool isDead;
 
 
     #region InputSetup
@@ -45,6 +50,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     private InputAction _dodgeAction;
     private InputAction _swapWeaponsAction;
     private InputAction _secondaryAction;
+    private InputAction _specialAction;
     private InputAction _activateAction;
     private InputAction _pauseAction;
     private InputAction _primaryAction;
@@ -92,6 +98,8 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     // Update is called once per frame
     void Update()
     {
+        CheckHP();
+        DetermineShieldSize();
         
         /*if (isGrounded)
         {
@@ -106,7 +114,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
         {
             jumpBufferCounter -= Time.deltaTime;
         }*/
-            
+
     }
     private void FixedUpdate()
     {
@@ -156,7 +164,8 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
 
     public void OnDoPause(InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        gameManager.PauseGame();
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -176,6 +185,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
    
     public void OnPrimary(InputAction.CallbackContext context)
     {
+        
         playerAttack.Attack();
         /*{
             playerAnimator.SetBool("Hit",true);
@@ -228,11 +238,43 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     {
         throw new System.NotImplementedException();
     }
+
+
+    public void CheckHP()
+    {
+        if (currentHP <= 0)
+        {
+            playerRB.constraints = RigidbodyConstraints.FreezeAll;
+            playerAnimator.Play("Death",0,0);
+            isDead = true;
+            DisableControls();
+            Destroy(this.gameObject, 5f);
+        }
+        if (currentHP == 1)
+        {
+            playerHPUI[0].SetActive(true);
+            playerHPUI[1].SetActive(false);
+            playerHPUI[2].SetActive(false);
+        }
+        if (currentHP == 2)
+        {
+            playerHPUI[0].SetActive(true);
+            playerHPUI[1].SetActive(true);
+            playerHPUI[2].SetActive(false);
+        }
+        if (currentHP == 3)
+        {
+            playerHPUI[0].SetActive(true);
+            playerHPUI[1].SetActive(true);
+            playerHPUI[2].SetActive(true);
+        }
+    }
     public void GrowShield()
     {
         if (shieldSize<3)
         {
             shieldSize++;
+            
         }      
     }
     public void RaiseShield(bool isShieldRaised)
@@ -240,7 +282,11 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
         
         if (isShieldRaised)
         {
-            //hold animation
+            playerAnimator.SetBool("isBlocking", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isBlocking", false);
         }
         
     }
@@ -249,8 +295,52 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
         if (shieldSize>0)
         {
 
-            shieldParts[Random.Range(0, shieldSize)].GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(1, 2), Random.Range(1, 2), Random.Range(1, 2)),ForceMode.Impulse);
+            var shieldpartRB =shieldParts[Random.Range(0, shieldSize)].AddComponent<Rigidbody>();
+            shieldpartRB.AddForce(new Vector3(Random.Range(1, 2), Random.Range(1, 2), Random.Range(1, 2)), ForceMode.Impulse);
             shieldSize--;
+        }
+    }
+    
+    public void DetermineShieldSize()
+    {
+        if (shieldSize == 0)
+        {
+            foreach (GameObject shieldpartUI in shieldPartsUI)
+            {
+                shieldpartUI.SetActive(false);
+            }
+            foreach (GameObject shieldpart in shieldParts)
+            {
+
+                shieldpart.SetActive(false);
+            }
+        }
+        if (shieldSize == 1)
+        {
+            shieldPartsUI[0].SetActive(true);
+            shieldParts[0].SetActive(true);
+            shieldPartsUI[1].SetActive(false);
+            shieldParts[1].SetActive(false);
+            shieldPartsUI[2].SetActive(false);
+            shieldParts[2].SetActive(false);
+        }
+        if (shieldSize == 2)
+        {
+            shieldPartsUI[0].SetActive(true);
+            shieldParts[0].SetActive(true);
+            shieldPartsUI[1].SetActive(true);
+            shieldParts[1].SetActive(true);
+            shieldPartsUI[2].SetActive(false);
+            shieldParts[2].SetActive(false);
+        }
+        if (shieldSize == 3)
+        {
+            shieldPartsUI[0].SetActive(true);
+            shieldParts[0].SetActive(true);
+            shieldPartsUI[1].SetActive(true);
+            shieldParts[1].SetActive(true);
+            shieldPartsUI[2].SetActive(true);
+            shieldParts[2].SetActive(true);
         }
     }
     
@@ -263,8 +353,10 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
         _primaryAction = _controls.Player.Primary;
         _dodgeAction = _controls.Player.Dodge;
         _secondaryAction = _controls.Player.Secondary;
+        _specialAction =_controls.Player.Special;
         _swapWeaponsAction = _controls.Player.SwapWeapon;
         _activateAction = _controls.Player.Action;
+        _pauseAction = _controls.Player.DoPause;
         _dodgeAction.performed += OnDodge;
         _moveAction.performed += OnMove;
         _lookAction.performed += OnLook;
@@ -272,10 +364,20 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
         //_primaryAction.canceled += OnPrimaryCancel;
         _secondaryAction.started += OnSecondary;
         _secondaryAction.canceled += OnSecondaryCancel;
+        _specialAction.started += OnSpecial;
         _swapWeaponsAction.started += OnSwapWeapon;
         _activateAction.performed += OnAction;
         //_pauseAction = _controls.Player.DoPause;
-        //_pauseAction.performed += OnDoPause;
+        _pauseAction.performed += OnDoPause;
+    }
+
+    public void OnSpecial(InputAction.CallbackContext context)
+    {
+        if (shieldSize>0)
+        {
+            playerAttack.ThrowShield();
+        }
+        
     }
 
     // Start is called before the first frame update

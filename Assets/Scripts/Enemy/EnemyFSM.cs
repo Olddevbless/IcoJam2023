@@ -66,7 +66,7 @@ public class EnemyFSM : Damagable, IDamageDealer
         switch (enemyCurrentState)
         {
             case EnemyStates.Patrol:
-                Patrol();
+                enemyCurrentState=EnemyStates.Charge;
                 break;
             case EnemyStates.Charge:
                 Charge();
@@ -88,7 +88,7 @@ public class EnemyFSM : Damagable, IDamageDealer
     #region StateMethods
     private void Attack()
     {
-        this.GetComponent<NavMeshAgent>().enabled = false;
+        
         RaycastHit[] hits = Physics.SphereCastAll(this.transform.position, attackRange, Vector3.forward, attackRange);
         foreach (RaycastHit hit in hits)
         {
@@ -101,6 +101,7 @@ public class EnemyFSM : Damagable, IDamageDealer
                 }
                 else
                 {
+                    hit.collider.gameObject.GetComponent<PlayerController>().TakeDamage(Damage);
                     hit.collider.attachedRigidbody.AddForce(this.transform.forward * 5, ForceMode.Impulse);
                 }
                 
@@ -108,7 +109,7 @@ public class EnemyFSM : Damagable, IDamageDealer
         }
         if (CheckDistanceFromTarget(fieldOfView.playerRef) > attackDistance)
         {
-            this.GetComponent<NavMeshAgent>().enabled = true;
+            
             enemyCurrentState = EnemyStates.Charge;
         }
     }
@@ -120,6 +121,7 @@ public class EnemyFSM : Damagable, IDamageDealer
     }
     private void Charge()
     {
+        this.GetComponent<NavMeshAgent>().destination = fieldOfView.playerRef.transform.position;
         if (CheckDistanceFromTarget(fieldOfView.playerRef) <= attackDistance)
         {
             enemyCurrentState = EnemyStates.Attack;
