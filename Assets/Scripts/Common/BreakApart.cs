@@ -21,10 +21,28 @@ public class BreakApart : MonoBehaviour
             if (part != null)
             {
                 part.transform.SetParent(null);
-                var partrigidBody = part.AddComponent<Rigidbody>();
-                partrigidBody.AddRelativeForce(new Vector3(Random.Range(1,3),Random.Range(1,2),Random.Range(1,3)),ForceMode.Impulse);
-                part.AddComponent<BoxCollider>();
-                part.AddComponent<PickablePart>();
+               
+                if (part.GetComponent<PickablePart>() == null)
+                {
+                    part.AddComponent<PickablePart>();
+                }
+                if (part.GetComponent<BoxCollider>() == null)
+                {
+                    
+                    part.AddComponent<BoxCollider>();
+                    
+                   
+                }
+                if (part.GetComponent<Rigidbody>() == null)
+                {
+                    part.AddComponent<Rigidbody>();
+                }
+                if (part.GetComponent<Rigidbody>() != null)
+                {
+                    var partrigidbody = part.GetComponent<Rigidbody>();
+                    partrigidbody.AddRelativeForce(new Vector3(Random.Range(1, 3), Random.Range(1, 2), Random.Range(1, 3)), ForceMode.Impulse);
+                }
+                
             }
         }
     }

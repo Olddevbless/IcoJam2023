@@ -2,6 +2,6 @@
 {
 	public interface IDamageDealer
 	{
-		int Damage { get; }
+		int Damage { get; set; }
 	}
 }

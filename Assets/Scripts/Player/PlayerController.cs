@@ -1,4 +1,5 @@
 using CommonComponents;
+using CommonComponents.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     [SerializeField] Vector2 mousePos;
     [SerializeField] PlayerInput playerInput;
     [SerializeField] Vector2 movement;
+    
     //[SerializeField] GameObject torso;
     public Vector3 mouseToGroundPoint;
     public Vector2 currentMoveVector;
@@ -29,11 +31,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     [SerializeField] bool isGrounded;*/
     Animator playerAnimator;
     [Header("Attacking")]
-    [SerializeField] float cooldownTime = 2f;
-    private float nextFireTime = 0f;
-    [SerializeField] static int noOfClicks = 0;
-    float lastClickedTime = 0;
-    float maxComboDelay = 1;
+    PlayerAttack playerAttack;
     [SerializeField] int shieldSize;
     [SerializeField] GameObject[] shieldParts;
     public bool shieldIsRaised;
@@ -50,9 +48,10 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     private InputAction _activateAction;
     private InputAction _pauseAction;
     private InputAction _primaryAction;
+
     #endregion
 
-     void Awake()
+    void Awake()
     {
         CacheControls();
         playerAnimator = GetComponentInChildren<Animator>();
@@ -85,6 +84,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     {
         playerRB = GetComponent<Rigidbody>();
         shieldSize = 0;
+        playerAttack = GetComponent<PlayerAttack>();
         
 
     }
@@ -92,7 +92,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
     // Update is called once per frame
     void Update()
     {
-        CheckPrimaryCombo();
+        
         /*if (isGrounded)
         {
             coyoteTimeCounter = coyoteTime;
@@ -123,9 +123,11 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
         var vector3movement = new Vector3(movement.x, 0, movement.y);
         vector3movement = rotation * vector3movement;
         playerRB.AddForce(vector3movement*playerAcceleration);
+        playerAnimator.SetBool("isRunning", true);
         if(movement ==Vector2.zero)
         {
             playerRB.velocity *= 0.75f;
+            playerAnimator.SetBool("isRunning", false);
         }
     }
     private void PlayerAim()
@@ -174,57 +176,31 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
    
     public void OnPrimary(InputAction.CallbackContext context)
     {
-        
-        lastClickedTime = Time.time;
-        noOfClicks++;
-        if (Time.time > nextFireTime)
-        {
+        playerAttack.Attack();
+        /*{
+            playerAnimator.SetBool("Hit",true);
             if (noOfClicks == 1)
             {
                 playerAnimator.SetBool("hit1", true);
             }
             noOfClicks = Mathf.Clamp(noOfClicks, 0, 3);
 
-            if (noOfClicks >= 2 && playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit1"))
+            if (noOfClicks >= 2 && playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.5f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit1"))
             {
                 playerAnimator.SetBool("hit1", false);
                 playerAnimator.SetBool("hit2", true);
             }
-            if (noOfClicks >= 3 && playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
+            if (noOfClicks >= 3 && playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.5f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
             {
                 playerAnimator.SetBool("hit2", false);
                 playerAnimator.SetBool("hit3", true);
             }
-        }
+        }*/
        
         
 
     }
-    public void CheckPrimaryCombo()
-    {
-        if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit1"))
-        {
-            playerAnimator.SetBool("hit1", false);
-        }
-        if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
-        {
-            playerAnimator.SetBool("hit2", false);
-        }
-        if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hit3"))
-        {
-            playerAnimator.SetBool("hit3", false);
-            noOfClicks = 0;
-        }
-
-
-        if (Time.time - lastClickedTime > maxComboDelay)
-        {
-            noOfClicks = 0;
-        }
-
-        //cooldown time
-        
-    }
+    
     
     public void OnSecondary(InputAction.CallbackContext context)
     {
@@ -277,7 +253,7 @@ public class PlayerController : Damagable,PlayerInput.IPlayerActions
             shieldSize--;
         }
     }
-
+    
     private void CacheControls()
     {
 

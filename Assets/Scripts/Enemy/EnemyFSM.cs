@@ -19,11 +19,13 @@ public class EnemyFSM : Damagable, IDamageDealer
     private Animator animator;
     private BreakApart breakApart;
     private bool hasCheckedState = false;
-    public int Damage => 1;
+    
 
     [Header("FSM")]
     [SerializeField] float checkStateTimer;
     [SerializeField] float checkStateTime;
+
+    public int Damage { get => 1; set => throw new System.NotImplementedException(); }
 
     public enum EnemyStates
     {
@@ -37,6 +39,7 @@ public class EnemyFSM : Damagable, IDamageDealer
     // Start is called before the first frame update
     void Start()
     {
+        
         animator = GetComponentInChildren<Animator>();
         fieldOfView = GetComponent<FieldOfView>();
         agent = GetComponent<NavMeshAgent>();
@@ -46,11 +49,16 @@ public class EnemyFSM : Damagable, IDamageDealer
     private void Update()
     {
         checkStateTimer -= Time.deltaTime;
+        if (currentHP<=0)
+        {
+            enemyCurrentState = EnemyStates.Dead;
+        }
         if(checkStateTimer<=0)
         {
             CheckState();
             checkStateTimer = checkStateTime;
         }
+
         
     }
     public void CheckState()

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 476586b0eaab99346afe907d285a0157, type: 3}
+  m_Name: Attack2
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 11400000, guid: 16a28d88e850e284eb9db86ab68da2e3, type: 2}
+  damageMultiplier: 2
+  animatorOV: {fileID: 22100000, guid: 167901034891db34a82f9fa3b82d23cb, type: 2}
